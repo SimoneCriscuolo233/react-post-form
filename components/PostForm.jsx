@@ -1,29 +1,79 @@
 import axios from "axios";
 import { useState } from "react";
 const PostForm = () => {
+  const [formData, setFormData] = useState({
+    author: '',
+    title: '',
+    body: '',
+    public: false,
+  });
+
+  const handleChange = (e) => {
+    const { name, type, value, checked } = e.target;
+    if (type === 'checkbox') {
+      setFormData(formData => ({ ...formData, public: checked }));
+    } else {
+      setFormData(formData => ({ ...formData, [name]: value }));
+    }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(formData);
+  };
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <div className="row">
 
         <div className="col-6 mb-3">
           <label className="form-label">Author</label>
-          <input type="text" className="form-control" name='author' placeholder="Enter author" />
+          <input
+            type="text"
+            className="form-control"
+            name='author'
+            value={formData.author}
+            onChange={handleChange}
+            placeholder="Enter author"
+            required
+          />
         </div>
 
         <div className="col-6 mb-3">
           <label className="form-label">Title</label>
-          <input type="text" className="form-control" name='title' placeholder="Enter title" />
+          <input
+            type="text"
+            className="form-control"
+            name='title'
+            value={formData.title}
+            onChange={handleChange}
+            placeholder="Enter title"
+            required
+          />
         </div>
 
         <div className="col-12 mb-3">
           <label className="form-label">Body</label>
-          <textarea className="form-control" name='body' rows="5" placeholder="Enter post body"></textarea>
+          <textarea
+            className="form-control"
+            name='body'
+            rows="5"
+            value={formData.body}
+            onChange={handleChange}
+            placeholder="Enter post body"
+            required
+          ></textarea>
         </div>
 
         <div className="col-12 mb-3">
           <div className="form-check">
-            <input type="checkbox" className="form-check-input" name="publicCheck" />
-            <label className="form-check-label" htmlFor="publicCheck">Public</label>
+            <input
+              type="checkbox"
+              className="form-check-input"
+              name="public"
+              checked={formData.public}
+              onChange={handleChange}
+            />
+            <label className="form-check-label" htmlFor="public">Public</label>
           </div>
         </div>
 
