@@ -20,9 +20,12 @@ const PostForm = ({ apiEndpoint }) => {
     e.preventDefault();
     axios.post(apiEndpoint, formData)
       .then(res => {
-        console.log(res.data);
+        alert('Post submitted successfully!');
         setFormData({ author: '', title: '', body: '', isPublic: false });
-      })
+      }).catch(error => {
+        console.log('Error:', error);
+        alert(`There was an error submitting the post. ${error}`);
+      });
 
   };
 
