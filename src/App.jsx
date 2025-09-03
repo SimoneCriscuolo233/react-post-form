@@ -6,6 +6,7 @@ function App() {
   return (
     <div className='container my-5'>
       <h1>Add new post</h1>
+      <PostForm />
     </div >
 
 
