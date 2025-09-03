@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
-const PostForm = () => {
+const PostForm = ({ apiEndpoint }) => {
+
   const [formData, setFormData] = useState({
     author: '',
     title: '',
@@ -10,17 +11,21 @@ const PostForm = () => {
 
   const handleChange = (e) => {
     const { name, type, value, checked } = e.target;
-    if (type === 'checkbox') {
-      setFormData(formData => ({ ...formData, public: checked }));
-    } else {
-      setFormData(formData => ({ ...formData, [name]: value }));
-    }
+    setFormData(formData => ({ ...formData, [name]: type === 'checkbox' ? checked : value }));
   };
+
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
+    axios.post(apiEndpoint, formData)
+      .then(res => {
+        console.log(res.data);
+        setFormData({ author: '', title: '', body: '', isPublic: false });
+      })
+
   };
+
   return (
     <form onSubmit={handleSubmit}>
       <div className="row">
@@ -87,3 +92,4 @@ const PostForm = () => {
 };
 
 export default PostForm;
+

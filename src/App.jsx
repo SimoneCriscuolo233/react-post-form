@@ -6,7 +6,7 @@ function App() {
   return (
     <div className='container my-5'>
       <h1>Add new post</h1>
-      <PostForm />
+      <PostForm apiEndpoint="https://**67c5b4f3351c081993fb1ab6**.mockapi.io**/api**/posts" />
     </div >
 
 
